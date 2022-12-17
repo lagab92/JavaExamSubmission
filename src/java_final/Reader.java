@@ -1,6 +1,8 @@
 package java_final;
 
 
+
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -10,55 +12,46 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class Reader {
+    public static void main(String[] args) throws IOException {
 
-    public String[][] readXl(String xlPath, String sheetName) throws IOException{
-
-        String path = xlPath;
+        String path = "C:\\Users\\musta\\Desktop\\confid_videos\\java\\EXCEL FILE\\excel3.xlsx";
 
         FileInputStream fis = new FileInputStream(path);
 
-        XSSFWorkbook wb = new XSSFWorkbook(fis);
-        XSSFSheet ws = wb.getSheet(sheetName);
+        XSSFWorkbook workbook = new XSSFWorkbook(fis);
 
-        int rows = ws.getLastRowNum()+1;
-        int cols = ws.getRow(0).getLastCellNum();
+        XSSFSheet sheet = workbook.getSheet("Sheet1");
 
-        String[][] data = new String[rows][cols];
+        int column = sheet.getRow(0).getLastCellNum();
 
-        for (int r = 0; r < rows; r++){
+        int row = sheet.getLastRowNum()+1;
 
-            XSSFRow myRow = ws.getRow(r);
 
-            for (int c = 0; c<cols; c++){
+        for (int a = 0; a < row; a++) {
 
-                XSSFCell cell = myRow.getCell(c);
-                String value = getCellValue(cell);
-                data[r][c] = value;
+            XSSFRow myRow = sheet.getRow(a);
 
+            for ( int b = 0 ; b< column;b++){
+
+                String value = myRow.getCell(b).toString();
+
+                System.out.print(value + "\t\t" );
             }
 
-        }
+            System.out.println();
 
-        return data;
-    }
+            System.out.println();
 
-    public static String getCellValue(Cell cellValue){
-        Object value = null;
 
-        switch (cellValue.getCellType())
-        {
-            case STRING:
-                value = cellValue.getStringCellValue();
-                break;
-            case NUMERIC:
-                value = cellValue.getNumericCellValue();
-                break;
-            case BOOLEAN:
-                value = cellValue.getBooleanCellValue();
-                break;
-        }
-        return value.toString();
+        }}}
 
-    }
 
-}
+
+
+
+
+
+
+
+
+
